@@ -1,8 +1,8 @@
-import /* we need our action types here*/ "../actions";
+import { FETCHING, FETCH_SUCCESS, FETCH_ERROR} from "../actions";
 const initialState = {
   characters: [],
-  isLoading: false,
-  error: ""
+  fetching: false,
+  error: null
   // Array characters, Boolean fetching, null error.
 };
 export const charsReducer = (state = initialState, action) => {
@@ -10,18 +10,20 @@ export const charsReducer = (state = initialState, action) => {
     case FETCHING:
     return{
       ...state,
-      isLoading:true
+      fetching: true
     };
     case FETCH_SUCCESS:
+    console.log(action.payload);
     return {
       ...state,
-      isLoading:false
+      charachters: [...state.charachters, ...action.payload], 
+      fetching:false
     }
     case FETCH_ERROR:
     return {
       ...state,
       error: action.payload,
-      isLoading:false
+      fetching:false
     }
     // Fill me in with the important reducers
     // action types should be FETCHING, SUCCESS and FAILURE
