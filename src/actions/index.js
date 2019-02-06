@@ -13,11 +13,8 @@ export const FETCH_ERROR = "FETCH_ERROR";
 // remember that now we have controll over our thunk-based action creator
 export const getCharacters = () => dispatch => {
     dispatch({type: FETCHING});
-    axios
-    .get(
-        'https://swapi.co/api/people/'
-    )
-    .then(res =>dispatch({type: FETCH_SUCCESS, payload: res.data}))
+    axios.get('https://swapi.co/api/people/')
+    .then(({data})=>dispatch({type: FETCH_SUCCESS, payload: data.results}))
     .catch(err =>
     dispatch({type: FETCH_ERROR, payload: "The charachter list broke"})
     );
